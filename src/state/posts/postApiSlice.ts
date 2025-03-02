@@ -5,9 +5,12 @@ export type Post = {
   title: string;
 };
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: "https://jsonplaceholder.typicode.com",
-});
+const baseQuery = async (args: any, api: any, extraOptions: any) => {
+  await new Promise((resolve) => setTimeout(resolve, 3000)); // 3-second delay
+  return fetchBaseQuery({
+    baseUrl: "https://jsonplaceholder.typicode.com",
+  })(args, api, extraOptions);
+};
 
 export const postApiSlice = createApi({
   reducerPath: "posts",

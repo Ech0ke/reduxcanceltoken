@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGetPostsQuery } from "../state/posts/postApiSlice";
-import { data } from "react-router";
+import { data, useLocation } from "react-router";
 
 const Posts = () => {
-  const { data: posts } = useGetPostsQuery({});
+  const location = useLocation();
+  const [skipQuery, setSkipQuery] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      setSkipQuery(true);
+    };
+  }, [location.pathname]);
+  const { data: posts } = useGetPostsQuery({}, { skip: skipQuery });
 
   return (
     <div>
